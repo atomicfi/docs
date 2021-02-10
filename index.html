@@ -1861,6 +1861,11 @@ var n=this.pipeline.run(e.tokenizer(t)),r=new e.Vector,i=[],o=this._fields.reduc
                     <a href="#connector-search" class="toc-h2 toc-link" data-title="">Connector Search</a>
                     
                   </li>
+
+                  <li>
+                    <a href="#generate-file-url" class="toc-h2 toc-link" data-title="">Generate File URL</a>
+
+                  </li>
                 
               </ul>
             
@@ -2567,7 +2572,10 @@ startTransact();
                     <span class="hljs-attr">"grossAmount"</span>: <span class="hljs-string">"1266.11"</span>,
                     <span class="hljs-attr">"netAmount"</span>: <span class="hljs-string">"1014.29"</span>,
                     <span class="hljs-attr">"paymentMethod"</span>: <span class="hljs-string">"deposit"</span>,
-                    <span class="hljs-attr">"paystub"</span>: <span class="hljs-string">"https://example.url/statement1.pdf"</span>,
+                    <span class="hljs-attr">"paystub"</span>: {
+                      _id: <span class="hljs-string">"602414d84f9a1980cf5eafcc",</span>
+                      url: <span class="hljs-string">"https://atomic-private.s3.amazonaws.com/5e978dcf3abbf90008a00b7a/602414d84f9a1980cf5eafcc/7773bc56-71b0-40a1-bbed-03d7b1434850.pdf?Expires=1612991865&Signature=jwSGIZEnOsNJrrQaUhLRnaNg5uQ%3D"</span>
+                    },
                     <span class="hljs-attr">"hours"</span>: <span class="hljs-string">"32"</span>
                 },
                 {
@@ -2575,7 +2583,10 @@ startTransact();
                     <span class="hljs-attr">"grossAmount"</span>: <span class="hljs-string">"1266.11"</span>,
                     <span class="hljs-attr">"netAmount"</span>: <span class="hljs-string">"1014.29"</span>,
                     <span class="hljs-attr">"paymentMethod"</span>: <span class="hljs-string">"deposit"</span>,
-                    <span class="hljs-attr">"paystub"</span>: <span class="hljs-string">"https://example.url/statement2.pdf"</span>,
+                    <span class="hljs-attr">"paystub"</span>: {
+                      _id: <span class="hljs-string">"602414d84f9a1980cf5eafcc",</span>
+                      url: <span class="hljs-string">"https://atomic-private.s3.amazonaws.com/5e978dcf3abbf90008a00b7a/602414d84f9a1980cf5eafcc/7773bc56-71b0-40a1-bbed-03d7b1434850.pdf?Expires=1612991865&Signature=jwSGIZEnOsNJrrQaUhLRnaNg5uQ%3D"</span>
+                    },
                     <span class="hljs-attr">"hours"</span>: <span class="hljs-string">"32"</span>
                 }
             ],
@@ -2652,7 +2663,10 @@ startTransact();
     <span class="hljs-attr">"grossAmount"</span>: <span class="hljs-string">"1266.11"</span>,
     <span class="hljs-attr">"netAmount"</span>: <span class="hljs-string">"1014.29"</span>,
     <span class="hljs-attr">"paymentMethod"</span>: <span class="hljs-string">"deposit"</span>,
-    <span class="hljs-attr">"paystub"</span>: <span class="hljs-string">"https://example.url/statement1.pdf"</span>,
+    <span class="hljs-attr">"paystub"</span>: {
+      _id: <span class="hljs-string">"602414d84f9a1980cf5eafcc",</span>
+      url: <span class="hljs-string">"https://atomic-private.s3.amazonaws.com/5e978dcf3abbf90008a00b7a/602414d84f9a1980cf5eafcc/7773bc56-71b0-40a1-bbed-03d7b1434850.pdf?Expires=1612991865&Signature=jwSGIZEnOsNJrrQaUhLRnaNg5uQ%3D"</span>
+    },
     <span class="hljs-attr">"hours"</span>: <span class="hljs-string">"32"</span>
 }
 </code></pre>
@@ -2688,8 +2702,8 @@ startTransact();
 </tr>
 <tr>
 <td><code>paystub</code></td>
-<td>string</td>
-<td>A link to download a PDF of the paystub.</td>
+<td>object</td>
+<td>An object containing fileds of _id and url. The url field can be used to download a PDF and is valid for 1 hour. If the url expires, you can get a new one using the <a href="#generate-file-url">generate file url</a> endpoint.</td>
 </tr>
 <tr>
 <td><code>hours</code></td>
@@ -4090,6 +4104,107 @@ print(response.text)
 </tr>
 </tbody>
 </table>
+<h2 id="generate-file-url">Generate File Url</h2>
+<blockquote>
+  <p>Code samples</p>
+  </blockquote>
+  <pre class="highlight tab tab-shell"><code><span class="hljs-comment"># You can also use wget</span>
+  curl --location --request GET <span class="hljs-string">"https://api.atomicfi.com/task/602414d84f9a1980cf5eafcc/file/602415224f9a1980cf5eb0a1/generate-url"</span> \
+    --header <span class="hljs-string">"Content-Type: application/json"</span> \
+    --header <span class="hljs-string">"x-api-key: f0d0a166-96de-4898-8879-da309801968b"</span> \
+    --header <span class="hljs-string">"x-api-secret: afcce08f-95bd-4317-9119-ecb8debae4f2"</span> \
+
+
+  </code></pre>
+  <pre class="highlight tab tab-javascript--nodejs"><code><span class="hljs-keyword">var</span> https = <span class="hljs-built_in">require</span>(<span class="hljs-string">'https'</span>);
+
+  <span class="hljs-keyword">var</span> options = {
+    <span class="hljs-string">'method'</span>: <span class="hljs-string">'GET'</span>,
+    <span class="hljs-string">'hostname'</span>: <span class="hljs-string">'https://api.atomicfi.com'</span>,
+    <span class="hljs-string">'path'</span>: <span class="hljs-string">'/task/602414d84f9a1980cf5eafcc/file/602415224f9a1980cf5eb0a1/generate-url'</span>,
+    <span class="hljs-string">'headers'</span>: {
+      <span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'application/json'</span>,
+      <span class="hljs-string">'x-api-key'</span>: <span class="hljs-string">'f0d0a166-96de-4898-8879-da309801968b'</span>,
+      <span class="hljs-string">'x-api-secret'</span>: <span class="hljs-string">'afcce08f-95bd-4317-9119-ecb8debae4f2'</span>
+    }
+  };
+
+  <span class="hljs-keyword">var</span> req = https.request(options, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">res</span>) </span>{
+    <span class="hljs-keyword">var</span> chunks = [];
+
+    res.on(<span class="hljs-string">"data"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">chunk</span>) </span>{
+      chunks.push(chunk);
+    });
+
+    res.on(<span class="hljs-string">"end"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">chunk</span>) </span>{
+      <span class="hljs-keyword">var</span> body = Buffer.concat(chunks);
+      <span class="hljs-built_in">console</span>.log(body.toString());
+    });
+
+    res.on(<span class="hljs-string">"error"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">error</span>) </span>{
+      <span class="hljs-built_in">console</span>.error(error);
+    });
+  });
+
+
+  req.end();
+
+  </code></pre>
+<p>Generate a URL in order to download a user file (ex: paystubs pdfs). Each URL is valid for 1 hour.</p>
+<h3 id="http-request">HTTP Request</h3>
+<p><code>GET /task/{taskId}/file/{fileId}/generate-url</code></p>
+<h3 id="authentication-headers">Authentication headers</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>x-api-key</code></td>
+<td>API Key for your Atomic account</td>
+</tr>
+<tr>
+<td><code>x-api-secret</code></td>
+<td>API Secret for your Atomic account</td>
+</tr>
+</tbody>
+</table>
+<pre><code>                                        
+</code></pre>
+<h3 id="request-properties">Request properties</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>taskId</code> <h6 id="required">required</h6></td>
+<td>string</td>
+<td>The id of the task</td>
+</tr>
+<tr>
+<td><code>fileId</code> <h6 id="required">required</h6></td>
+<td>string</td>
+<td>The id of the file</td>
+</tr>
+</tbody>
+</table>
+<h3 id="response">Response</h3>
+<blockquote>
+<p>Example response</p>
+</blockquote>
+<pre class="highlight tab tab-json"><code>{
+    <span class="hljs-attr">"url"</span>: <span class="hljs-literal">"https://atomic-private.s3.amazonaws.com/5e978dcf3abbf90008a00b7a/602414d84f9a1980cf5eafcc/7773bc56-71b0-40a1-bbed-03d7b1434850.pdf?Expires=1612991865&Signature=jwSGIZEnOsNJrrQaUhLRnaNg5uQ%3D"</span>,
+}
+</code></pre>
+<p>A successful request will return a URL that can be used to download the file.</p>
 <!-- Renderer: Shins v2.4.0 -->
       </div>
       <div class="dark-box">
