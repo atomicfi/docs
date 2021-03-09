@@ -657,7 +657,7 @@ The authentication status of a [Task](#create-task) was updated. Possible `authe
 | `address`     | Address street address. |
 | `city`        | Address city.           |
 | `state`       | Address state.          |
-| `postalcode`  | Address postal code.    |
+| `postalCode`  | Address postal code.    |
 
 ## Fail Reasons
 
