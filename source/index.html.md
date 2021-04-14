@@ -718,16 +718,19 @@ The authentication status of a [Task](#create-task) was updated. Possible `authe
 
 ## Fail Reasons
 
-| Attribute                    | Description                                                                                                                                                                      |
-| ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `bad-credentials`            | Either the username or password was incorrect.                                                                                                                                   |
-| `account-lockout`            | The account is locked out, most likely you have too many failed attempts.                                                                                                        |
-| `user-abandon`               | The user was asked an MFA question, but did not answer the question.                                                                                                             |
-| `connection-error`           | A network error occurred.                                                                                                                                                        |
-| `session-timeout`            | The session timed out.                                                                                                                                                           |
-| `product-not-supported`      | The account did not support the product.                                                                                                                                         |
-| `distribution-not-supported` | The account did not support the distribution, e.g. they requested to add an account for a percentage of their paycheck, but can only do fixed amounts and remainder/net balance. |
-| `unknown-failure`            | We encountered an unexpected error.                                                                                                                                              |
+| Attribute                      | Description                                                                                                                                                                      |
+| ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `bad-credentials`              | Either the username or password was incorrect.                                                                                                                                 |
+| `account-lockout`              | The account is locked out, most likely you have too many failed attempts.                                                                                                      |
+| `user-abandon`                 | The user was asked an MFA question, but did not answer the question.                                                                                                           |
+| `connection-error`             | A network error occurred.                                                                                                                                                      |
+| `session-timeout`              | The session timed out.                                                                                                                                                         |
+| `product-not-supported`       | The account did not support the product.                                                                                                                               
+|
+| `distribution-not-supported`  | The account did not support the distribution, e.g. they requested to add an account for a percentage of their paycheck, but can only do fixed amounts and remainder/net balance.|
+| `unknown-failure`             | We encountered an unexpected error.                                                                                                                                             |
+| `routing-number-not-supported`| The account did not support the routing number entered.                                                                                                                   
+|
 
 # API Reference
 
