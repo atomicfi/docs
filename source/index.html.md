@@ -729,7 +729,7 @@ The authentication status of a [Task](#create-task) was updated. Possible `authe
 | `distribution-not-supported` | The account did not support the distribution, e.g. they requested to add an account for a percentage of their paycheck, but can only do fixed amounts and remainder/net balance. |
 | `unknown-failure`            | We encountered an unexpected error.                                                                                                                                              |
 | `routing-number-not-supported` | The account did not support the routing number entered.                                                                                                                        |
-| `system-unavailable`         | The system was unavailable.                                                                                                                                             |
+| `system-unavailable`         | The system was unavailable, e.g. the site is undergoing maintenance or it is outside the window of scheduled availability for the site.                                          |
 
 # API Reference
 
